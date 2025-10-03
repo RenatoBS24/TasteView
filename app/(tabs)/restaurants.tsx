@@ -2,8 +2,8 @@ import { ThemedText } from '@/components/themed-text';
 import { ThemedView } from '@/components/themed-view';
 import { Colors } from '@/constants/theme';
 import { useColorScheme } from '@/hooks/use-color-scheme';
+import { router } from 'expo-router';
 import { ScrollView, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
-
 export default function RestaurantsScreen() {
   const colorScheme = useColorScheme();
   const colors = Colors[colorScheme ?? 'light'];
@@ -65,6 +65,10 @@ export default function RestaurantsScreen() {
     },
   ];
 
+  const handleRestaurantPress = () => {
+   router.push('/restaurant-details');
+  };
+
   return (
     <ThemedView style={styles.container}>
       <View style={styles.header}>
@@ -103,6 +107,7 @@ export default function RestaurantsScreen() {
             key={restaurant.id}
             style={[styles.restaurantCard, { backgroundColor: colors.card, borderColor: colors.border }]}
             activeOpacity={0.7}
+            onPress={handleRestaurantPress}
           >
             <View style={[styles.restaurantImage, { backgroundColor: colors.border }]}>
               <Text style={styles.restaurantEmoji}>{restaurant.emoji}</Text>

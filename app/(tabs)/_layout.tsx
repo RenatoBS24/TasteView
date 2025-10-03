@@ -31,20 +31,35 @@ export default function TabLayout() {
         }}
       />
       <Tabs.Screen
+        name="favorites"
+        options={{
+          title: 'Favoritos',
+          tabBarIcon: ({ color }) => <IconSymbol size={28} name="heart.fill" color={color} />,
+        }}
+      />
+    
+      <Tabs.Screen
         name="restaurants"
         options={{
           title: 'Restaurantes',
           tabBarIcon: ({ color }) => <IconSymbol size={28} name="building.2.fill" color={color} />,
         }}
       />
-      <Tabs.Screen
+     {/* <Tabs.Screen
         name="camera"
         options={{
           title: 'Capturar',
           tabBarIcon: ({ color }) => <IconSymbol size={28} name="camera.fill" color={color} />,
         }}
+      />*/}
+       <Tabs.Screen
+        name="profile"
+        options={{
+          title: 'Perfil',
+          tabBarIcon: ({ color }) => <IconSymbol size={28} name="person.fill" color={color} />,
+        }}
       />
-      
+       
     </Tabs>
   );
 }

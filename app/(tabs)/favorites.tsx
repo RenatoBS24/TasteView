@@ -1,9 +1,9 @@
-import { StyleSheet, View, Text, ScrollView, TouchableOpacity } from 'react-native';
 import { ThemedText } from '@/components/themed-text';
 import { ThemedView } from '@/components/themed-view';
 import { Colors } from '@/constants/theme';
 import { useColorScheme } from '@/hooks/use-color-scheme';
 import { useState } from 'react';
+import { ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 
 export default function FavoritesScreen() {
   const colorScheme = useColorScheme();
@@ -16,6 +16,7 @@ export default function FavoritesScreen() {
       name: 'Lomo Saltado',
       restaurant: 'El Sabor Peruano',
       price: 'S/. 35.00',
+      
       category: 'Platos de Fondo',
       emoji: '🥩',
       rating: '4.8',
