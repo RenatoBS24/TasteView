@@ -2,7 +2,7 @@ import { ThemedText } from '@/components/themed-text';
 import { ThemedView } from '@/components/themed-view';
 import { Colors } from '@/constants/theme';
 import { useColorScheme } from '@/hooks/use-color-scheme';
-import { Dimensions, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { Dimensions, Image, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 
 const { width } = Dimensions.get('window');
 
@@ -13,30 +13,13 @@ export default function RestaurantDetailsScreen() {
   const menuCategories = [
     {
       id: 1,
-      name: 'Entradas',
+      name: 'Hamburguesas',
       items: [
-        { id: 1, name: 'Ceviche Clásico', price: 'S/. 28.00', emoji: '🐟', has3D: true },
-        { id: 2, name: 'Causa Limeña', price: 'S/. 18.00', emoji: '🥔', has3D: true },
-        { id: 3, name: 'Anticuchos', price: 'S/. 25.00', emoji: '🍢', has3D: true },
+        { id: 1, name: 'Hamburguesa de carne', price: 'S/. 10.00', emoji: '🐟', has3D: true,image:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT4YDCJqgMFtsD9dBn2uch0RTrROXHmvr1vnw&s' },
+        { id: 2, name: 'Hamburguesa de pollo', price: 'S/. 10.00', emoji: '🥔', has3D: true,image:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQKW-gqesppw_f22pEzRuxscyzZWOTA3YJLMg&s' },
+        { id: 3, name: 'Hamburguesa a lo pobre', price: 'S/. 18.00', emoji: '🍢', has3D: true, image:'https://www.bembos.com.pe/media/catalog/product/2/1/2146463857.png?optimize=medium&bg-color=255,255,255&fit=bounds&height=700&width=700&canvas=700:700&format=jpeg' },
       ],
-    },
-    {
-      id: 2,
-      name: 'Platos de Fondo',
-      items: [
-        { id: 4, name: 'Lomo Saltado', price: 'S/. 35.00', emoji: '🥩', has3D: true },
-        { id: 5, name: 'Ají de Gallina', price: 'S/. 32.00', emoji: '🍗', has3D: true },
-        { id: 6, name: 'Arroz con Mariscos', price: 'S/. 38.00', emoji: '🦐', has3D: false },
-      ],
-    },
-    {
-      id: 3,
-      name: 'Postres',
-      items: [
-        { id: 7, name: 'Suspiro Limeño', price: 'S/. 15.00', emoji: '🍮', has3D: true },
-        { id: 8, name: 'Mazamorra Morada', price: 'S/. 12.00', emoji: '🍇', has3D: false },
-      ],
-    },
+    }
   ];
 
   const reviews = [
@@ -48,9 +31,9 @@ export default function RestaurantDetailsScreen() {
   return (
     <ThemedView style={styles.container}>
       <ScrollView showsVerticalScrollIndicator={false}>
-        {/* Hero Section */}
         <View style={[styles.heroSection, { backgroundColor: colors.border }]}>
-          <Text style={styles.heroEmoji}>🇵🇪</Text>
+          <Image source={{ uri: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTuR1dubu5XkFUU25TNmn9Er85UgCvWEc4IGw&s' }} style={styles.heroImage}
+            resizeMode="cover" />
           <View style={[styles.badge3D, { backgroundColor: colors.primary }]}>
             <Text style={styles.badge3DText}>Menú 3D</Text>
           </View>
@@ -60,8 +43,8 @@ export default function RestaurantDetailsScreen() {
         <View style={styles.infoSection}>
           <View style={styles.headerRow}>
             <View style={styles.headerLeft}>
-              <ThemedText style={styles.restaurantName}>El Sabor Peruano</ThemedText>
-              <ThemedText style={styles.cuisine}>Cocina Peruana</ThemedText>
+              <ThemedText style={styles.restaurantName}>Noly</ThemedText>
+              <ThemedText style={styles.cuisine}>Sandwicheria</ThemedText>
             </View>
             <TouchableOpacity style={styles.favoriteButton} activeOpacity={0.7}>
               <Text style={styles.favoriteIcon}>🤍</Text>
@@ -71,17 +54,12 @@ export default function RestaurantDetailsScreen() {
           <View style={styles.statsRow}>
             <View style={styles.statItem}>
               <Text style={styles.statIcon}>⭐</Text>
-              <ThemedText style={styles.statText}>4.8 (234)</ThemedText>
+              <ThemedText style={styles.statText}>4.6 (234)</ThemedText>
             </View>
             <View style={styles.statDivider} />
             <View style={styles.statItem}>
               <Text style={styles.statIcon}>📍</Text>
-              <ThemedText style={styles.statText}>1.2 km</ThemedText>
-            </View>
-            <View style={styles.statDivider} />
-            <View style={styles.statItem}>
-              <Text style={styles.statIcon}>🕐</Text>
-              <ThemedText style={styles.statText}>30-40 min</ThemedText>
+              <ThemedText style={styles.statText}>2.5 km</ThemedText>
             </View>
           </View>
 
@@ -90,8 +68,7 @@ export default function RestaurantDetailsScreen() {
             <View style={styles.infoContent}>
               <ThemedText style={styles.infoTitle}>Sobre este restaurante</ThemedText>
               <ThemedText style={styles.infoText}>
-                Restaurante especializado en comida peruana tradicional con más de 15 años de experiencia. 
-                Todos nuestros platos principales están disponibles en visualización 3D.
+                Restaurante especializado en comida rapida, con más de 15 años de experiencia.
               </ThemedText>
             </View>
           </View>
@@ -100,15 +77,13 @@ export default function RestaurantDetailsScreen() {
             <Text style={styles.scheduleIcon}>🕐</Text>
             <View style={styles.scheduleContent}>
               <ThemedText style={styles.scheduleTitle}>Horario de atención</ThemedText>
-              <ThemedText style={styles.scheduleText}>Lun - Dom: 11:00 AM - 10:00 PM</ThemedText>
+              <ThemedText style={styles.scheduleText}>Lun - Dom: 6:00 PM - 12:00 PM</ThemedText>
               <View style={[styles.openBadge, { backgroundColor: '#10B981' }]}>
                 <Text style={styles.openBadgeText}>Abierto ahora</Text>
               </View>
             </View>
           </View>
         </View>
-
-        {/* Menu Section */}
         <View style={styles.menuSection}>
           <ThemedText style={styles.sectionTitle}>Menú</ThemedText>
           
@@ -123,7 +98,7 @@ export default function RestaurantDetailsScreen() {
                   activeOpacity={0.7}
                 >
                   <View style={[styles.menuItemImage, { backgroundColor: colors.border }]}>
-                    <Text style={styles.menuItemEmoji}>{item.emoji}</Text>
+                    <Image source={{ uri: item.image }} style={styles. menuItemImageInner} />
                     {item.has3D && (
                       <View style={styles.badge3DSmall}>
                         <Text style={styles.badge3DSmallText}>3D</Text>
@@ -140,8 +115,6 @@ export default function RestaurantDetailsScreen() {
             </View>
           ))}
         </View>
-
-        {/* Reviews Section */}
         <View style={styles.reviewsSection}>
           <View style={styles.reviewsHeader}>
             <ThemedText style={styles.sectionTitle}>Opiniones</ThemedText>
@@ -182,7 +155,7 @@ export default function RestaurantDetailsScreen() {
           <ThemedText style={styles.sectionTitle}>Ubicación</ThemedText>
           <View style={[styles.mapPlaceholder, { backgroundColor: colors.border }]}>
             <Text style={styles.mapIcon}>🗺️</Text>
-            <ThemedText style={styles.mapText}>Av. Principal 123, Lima</ThemedText>
+            <ThemedText style={styles.mapText}>Av. grau 433, Lambayeque</ThemedText>
           </View>
         </View>
       </ScrollView>
@@ -199,6 +172,13 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     position: 'relative',
+  },
+  heroImage: {
+    width: '100%',
+    height: '100%',
+    position: 'absolute',
+    top: 0,
+    left: 0,
   },
   heroEmoji: {
     fontSize: 100,
@@ -377,6 +357,13 @@ const styles = StyleSheet.create({
   },
   menuItemInfo: {
     flex: 1,
+  },
+   menuItemImageInner: {
+    width: 60,
+    height: 60,
+    borderRadius: 10,
+    overflow: 'hidden',
+    
   },
   menuItemName: {
     fontSize: 16,

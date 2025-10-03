@@ -3,7 +3,7 @@ import { ThemedView } from '@/components/themed-view';
 import { Colors } from '@/constants/theme';
 import { useColorScheme } from '@/hooks/use-color-scheme';
 import { router } from 'expo-router';
-import { ScrollView, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
+import { Image, ScrollView, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
 export default function RestaurantsScreen() {
   const colorScheme = useColorScheme();
   const colors = Colors[colorScheme ?? 'light'];
@@ -11,39 +11,43 @@ export default function RestaurantsScreen() {
   const restaurants = [
     {
       id: 1,
-      name: 'El Sabor Peruano',
+      name: 'El paisa norteño',
       cuisine: 'Cocina Peruana',
       rating: '4.8',
       distance: '1.2 km',
       emoji: '🇵🇪',
       has3D: true,
+      image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSDjwuKyRuD1RdIdAMYbLZ77XkUocCTkkrG9w&s'
     },
     {
       id: 2,
-      name: 'Marisquería La Costa',
-      cuisine: 'Mariscos',
+      name: 'Noly',
+      cuisine: 'Sandwicheria',
       rating: '4.6',
       distance: '2.5 km',
       emoji: '🦐',
       has3D: true,
+      image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTuR1dubu5XkFUU25TNmn9Er85UgCvWEc4IGw&s'
     },
     {
       id: 3,
-      name: 'Pizzería Napoli',
-      cuisine: 'Italiana',
+      name: 'Brasas grill',
+      cuisine: 'Polleria',
       rating: '4.7',
       distance: '800 m',
       emoji: '🍕',
       has3D: true,
+      image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRe40ri38mH4gY6VmsEO1rcPpB4sP2KAkXhAA&s'
     },
     {
       id: 4,
-      name: 'Sushi Master',
-      cuisine: 'Japonesa',
+      name: 'El pacifico',
+      cuisine: 'Restaurant gourmet',
       rating: '4.9',
       distance: '3.1 km',
       emoji: '🍣',
       has3D: true,
+      image:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSvLpFvmaqR_cc8TBoroC6cvrww5PanlPhuxQ&s'
     },
     {
       id: 5,
@@ -110,7 +114,7 @@ export default function RestaurantsScreen() {
             onPress={handleRestaurantPress}
           >
             <View style={[styles.restaurantImage, { backgroundColor: colors.border }]}>
-              <Text style={styles.restaurantEmoji}>{restaurant.emoji}</Text>
+              <Image source={{ uri: restaurant.image }} style={styles.restaurantImage} />
               {restaurant.has3D && (
                 <View style={[styles.badge3D, { backgroundColor: colors.primary }]}>
                   <Text style={styles.badge3DText}>3D</Text>
@@ -212,7 +216,7 @@ const styles = StyleSheet.create({
     borderRadius: 12,
     justifyContent: 'center',
     alignItems: 'center',
-    marginRight: 15,
+    marginRight: 1,
     position: 'relative',
   },
   restaurantEmoji: {
@@ -232,6 +236,7 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
   },
   restaurantInfo: {
+    marginLeft: 15,
     flex: 1,
     justifyContent: 'center',
   },

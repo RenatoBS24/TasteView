@@ -3,7 +3,7 @@ import { ThemedView } from '@/components/themed-view';
 import { Colors } from '@/constants/theme';
 import { useColorScheme } from '@/hooks/use-color-scheme';
 import { useState } from 'react';
-import { ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { Image, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 
 export default function FavoritesScreen() {
   const colorScheme = useColorScheme();
@@ -13,22 +13,21 @@ export default function FavoritesScreen() {
   const favorites = [
     {
       id: 1,
-      name: 'Lomo Saltado',
-      restaurant: 'El Sabor Peruano',
-      price: 'S/. 35.00',
-      
+      name: 'Hamburguesa de carne',
+      restaurant: 'Noly',
+      price: 'S/. 10.00',
       category: 'Platos de Fondo',
       emoji: '🥩',
-      rating: '4.8',
+      image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT4YDCJqgMFtsD9dBn2uch0RTrROXHmvr1vnw&s',
     },
     {
       id: 2,
       name: 'Ceviche Clásico',
-      restaurant: 'Marisquería La Costa',
+      restaurant: 'El paisa norteño',
       price: 'S/. 28.00',
       category: 'Entradas',
       emoji: '🐟',
-      rating: '4.9',
+      image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRMdfxQIB0koDq5mrLiOq_q9-pAq44uvawzfg&s',
     },
     {
       id: 3,
@@ -118,7 +117,7 @@ export default function FavoritesScreen() {
             activeOpacity={0.7}
           >
             <View style={[styles.dishImage, { backgroundColor: colors.border }]}>
-              <Text style={styles.dishEmoji}>{item.emoji}</Text>
+              <Image source={{ uri: item.image }} style={styles.dishImage} />
               <View style={styles.badge3D}>
                 <Text style={styles.badge3DText}>3D</Text>
               </View>
@@ -140,11 +139,10 @@ export default function FavoritesScreen() {
               </View>
 
               <View style={styles.dishMeta}>
-                <View style={styles.metaItem}>
+                {/*<View style={styles.metaItem}>
                   <Text style={styles.metaIcon}>⭐</Text>
                   <ThemedText style={styles.metaText}>{item.rating}</ThemedText>
-                </View>
-                <View style={styles.metaDivider} />
+                </View>*/}
                 <View style={styles.metaItem}>
                   <Text style={styles.metaIcon}>🏷️</Text>
                   <ThemedText style={styles.metaText}>{item.category}</ThemedText>
