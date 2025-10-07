@@ -2,6 +2,7 @@ import { ThemedText } from '@/components/themed-text';
 import { ThemedView } from '@/components/themed-view';
 import { Colors } from '@/constants/theme';
 import { useColorScheme } from '@/hooks/use-color-scheme';
+import { router } from 'expo-router';
 import { Dimensions, Image, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 
 const { width } = Dimensions.get('window');
@@ -38,8 +39,6 @@ export default function RestaurantDetailsScreen() {
             <Text style={styles.badge3DText}>Menú 3D</Text>
           </View>
         </View>
-
-        {/* Restaurant Info */}
         <View style={styles.infoSection}>
           <View style={styles.headerRow}>
             <View style={styles.headerLeft}>
@@ -118,15 +117,21 @@ export default function RestaurantDetailsScreen() {
         <View style={styles.reviewsSection}>
           <View style={styles.reviewsHeader}>
             <ThemedText style={styles.sectionTitle}>Opiniones</ThemedText>
-            <TouchableOpacity activeOpacity={0.7} style={styles.reviewsActions}>
+            <TouchableOpacity activeOpacity={0.7}>
               <ThemedText style={[styles.seeAllLink, { color: colors.primary }]}>
                 Ver todas
               </ThemedText>
-              <ThemedText style={[styles.seeAllLink, { color: colors.primary }]}>
-                Agregar reseña
-              </ThemedText>
             </TouchableOpacity>
           </View>
+
+          <TouchableOpacity
+            style={[styles.addReviewButton, { backgroundColor: colors.primary }]}
+            onPress={() => router.push('/add-review')}
+            activeOpacity={0.7}
+          >
+            <Text style={styles.addReviewIcon}>✍️</Text>
+            <Text style={styles.addReviewText}>Agregar mi reseña</Text>
+          </TouchableOpacity>
 
           {reviews.map((review) => (
             <View
@@ -152,8 +157,6 @@ export default function RestaurantDetailsScreen() {
             </View>
           ))}
         </View>
-
-        {/* Location */}
         <View style={styles.locationSection}>
           <ThemedText style={styles.sectionTitle}>Ubicación</ThemedText>
           <View style={[styles.mapPlaceholder, { backgroundColor: colors.border }]}>
@@ -393,6 +396,23 @@ const styles = StyleSheet.create({
   },
   seeAllLink: {
     fontSize: 14,
+    fontWeight: '600',
+  },
+  addReviewButton: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    padding: 14,
+    borderRadius: 12,
+    marginBottom: 20,
+    gap: 8,
+  },
+  addReviewIcon: {
+    fontSize: 20,
+  },
+  addReviewText: {
+    color: '#FFFFFF',
+    fontSize: 15,
     fontWeight: '600',
   },
   reviewCard: {

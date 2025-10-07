@@ -2,6 +2,7 @@ import { ThemedText } from '@/components/themed-text';
 import { ThemedView } from '@/components/themed-view';
 import { Colors } from '@/constants/theme';
 import { useColorScheme } from '@/hooks/use-color-scheme';
+import { router } from 'expo-router';
 import { useState } from 'react';
 import { ScrollView, StyleSheet, Switch, Text, TouchableOpacity, View } from 'react-native';
 
@@ -10,7 +11,9 @@ export default function ProfileScreen() {
   const colors = Colors[colorScheme ?? 'light'];
   const [notificationsEnabled, setNotificationsEnabled] = useState(true);
   const [locationEnabled, setLocationEnabled] = useState(true);
-
+  const handleLogoutPress = () => {
+     router.push('/login');
+    };
   return (
     <ThemedView style={styles.container}>
       <ScrollView showsVerticalScrollIndicator={false}>
@@ -129,8 +132,9 @@ export default function ProfileScreen() {
         <TouchableOpacity
           style={[styles.logoutButton, { borderColor: '#EF4444' }]}
           activeOpacity={0.7}
+          onPress={handleLogoutPress}
         >
-          <Text style={styles.logoutText}>Cerrar Sesión</Text>
+        <Text style={styles.logoutText}>Cerrar Sesión</Text>
         </TouchableOpacity>
 
         <ThemedText style={styles.version}>Versión 1.0.0</ThemedText>

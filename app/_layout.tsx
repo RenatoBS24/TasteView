@@ -16,7 +16,15 @@ export default function RootLayout() {
     <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
       <Stack>
         <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+        <Stack.Screen name="login" options={{ headerShown: false }} />
+        <Stack.Screen name="add-review" options={{ headerShown: false, presentation: 'modal' }} />
+        <Stack.Screen name="restaurant-register" options={{ headerShown: false }} />
+        <Stack.Screen name="restaurant-menu-manager" options={{ headerShown: false }} />
+        <Stack.Screen name="restaurant-details" options={{ headerShown: false }} />
+        <Stack.Screen name="search" options={{ headerShown: false, presentation: 'modal' }} />
+        <Stack.Screen name="favorites" options={{ headerShown: false }} />
         <Stack.Screen name="modal" options={{ presentation: 'modal', title: 'Modal' }} />
+        <Stack.Screen name="+not-found" />
       </Stack>
       <StatusBar style="auto" />
     </ThemeProvider>

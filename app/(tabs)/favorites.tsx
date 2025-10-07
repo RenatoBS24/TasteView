@@ -139,10 +139,6 @@ export default function FavoritesScreen() {
               </View>
 
               <View style={styles.dishMeta}>
-                {/*<View style={styles.metaItem}>
-                  <Text style={styles.metaIcon}>⭐</Text>
-                  <ThemedText style={styles.metaText}>{item.rating}</ThemedText>
-                </View>*/}
                 <View style={styles.metaItem}>
                   <Text style={styles.metaIcon}>🏷️</Text>
                   <ThemedText style={styles.metaText}>{item.category}</ThemedText>

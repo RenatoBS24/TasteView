@@ -2,22 +2,25 @@ import { ThemedText } from '@/components/themed-text';
 import { ThemedView } from '@/components/themed-view';
 import { Colors } from '@/constants/theme';
 import { useColorScheme } from '@/hooks/use-color-scheme';
+import { router } from 'expo-router';
 import { useState } from 'react';
-import { KeyboardAvoidingView, Platform, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
+import { KeyboardAvoidingView, Platform, ScrollView, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
 
 export default function LoginScreen() {
   const colorScheme = useColorScheme();
   const colors = Colors[colorScheme ?? 'light'];
   const [isLogin, setIsLogin] = useState(true);
+  const [accountType, setAccountType] = useState<'user' | 'restaurant'>('user');
 
   return (
     <ThemedView style={styles.container}>
-      <KeyboardAvoidingView 
-        behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-        style={styles.keyboardView}
-      >
-        <View style={styles.header}>
-          <View style={[styles.logoContainer, { backgroundColor: colors.border }]}>
+      <ScrollView showsVerticalScrollIndicator={false}>
+        <KeyboardAvoidingView
+          behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+          style={styles.keyboardView}
+        >
+          <View style={styles.header}>
+            <View style={[styles.logoContainer, { backgroundColor: colors.border }]}>
             <Text style={styles.logoIcon}>🍽️</Text>
           </View>
           <ThemedText style={styles.appName}>TasteView</ThemedText>
@@ -27,6 +30,45 @@ export default function LoginScreen() {
         </View>
 
         <View style={styles.formContainer}>
+          <View style={styles.accountTypeSelector}>
+            <TouchableOpacity
+              style={[
+                styles.accountTypeButton,
+                { backgroundColor: colors.card, borderColor: colors.border },
+                accountType === 'user' && { backgroundColor: colors.primary, borderColor: colors.primary }
+              ]}
+              onPress={() => setAccountType('user')}
+              activeOpacity={0.7}
+            >
+              <Text style={styles.accountTypeIcon}>👤</Text>
+              <Text style={[
+                styles.accountTypeText,
+                { color: colors.text },
+                accountType === 'user' && { color: '#FFFFFF', fontWeight: '600' }
+              ]}>
+                Usuario
+              </Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              style={[
+                styles.accountTypeButton,
+                { backgroundColor: colors.card, borderColor: colors.border },
+                accountType === 'restaurant' && { backgroundColor: colors.primary, borderColor: colors.primary }
+              ]}
+              onPress={() => setAccountType('restaurant')}
+              activeOpacity={0.7}
+            >
+              <Text style={styles.accountTypeIcon}>🏪</Text>
+              <Text style={[
+                styles.accountTypeText,
+                { color: colors.text },
+                accountType === 'restaurant' && { color: '#FFFFFF', fontWeight: '600' }
+              ]}>
+                Restaurante
+              </Text>
+            </TouchableOpacity>
+          </View>
+
           <View style={styles.tabSelector}>
             <TouchableOpacity
               style={[
@@ -147,6 +189,18 @@ export default function LoginScreen() {
             </View>
           </View>
 
+          {!isLogin && accountType === 'restaurant' && (
+            <TouchableOpacity
+              style={[styles.fullRegisterButton, { borderColor: colors.primary }]}
+              onPress={() => router.push('/restaurant-register')}
+              activeOpacity={0.7}
+            >
+              <Text style={[styles.fullRegisterText, { color: colors.primary }]}>
+                O completa el registro completo de restaurante →
+              </Text>
+            </TouchableOpacity>
+          )}
+
           {!isLogin && (
             <View style={styles.termsContainer}>
               <ThemedText style={styles.termsText}>
@@ -159,6 +213,7 @@ export default function LoginScreen() {
           )}
         </View>
       </KeyboardAvoidingView>
+      </ScrollView>
     </ThemedView>
   );
 }
@@ -198,6 +253,27 @@ const styles = StyleSheet.create({
   },
   formContainer: {
     flex: 1,
+  },
+  accountTypeSelector: {
+    flexDirection: 'row',
+    marginBottom: 20,
+    gap: 10,
+  },
+  accountTypeButton: {
+    flex: 1,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    padding: 14,
+    borderRadius: 12,
+    borderWidth: 1,
+    gap: 8,
+  },
+  accountTypeIcon: {
+    fontSize: 20,
+  },
+  accountTypeText: {
+    fontSize: 14,
   },
   tabSelector: {
     flexDirection: 'row',
@@ -285,6 +361,17 @@ const styles = StyleSheet.create({
     fontSize: 18,
   },
   socialText: {
+    fontSize: 14,
+    fontWeight: '600',
+  },
+  fullRegisterButton: {
+    padding: 14,
+    borderRadius: 12,
+    borderWidth: 2,
+    alignItems: 'center',
+    marginTop: 12,
+  },
+  fullRegisterText: {
     fontSize: 14,
     fontWeight: '600',
   },

@@ -101,7 +101,6 @@ export default function SearchScreen() {
       </View>
 
       <ScrollView showsVerticalScrollIndicator={false}>
-        {/* Recent Searches */}
         {recentSearches.length > 0 && (
           <View style={styles.section}>
             <View style={styles.sectionHeader}>
@@ -130,8 +129,6 @@ export default function SearchScreen() {
             </View>
           </View>
         )}
-
-        {/* Popular Searches */}
         <View style={styles.section}>
           <ThemedText style={styles.sectionTitle}>Búsquedas populares</ThemedText>
           <View style={styles.popularGrid}>
@@ -146,8 +143,6 @@ export default function SearchScreen() {
             ))}
           </View>
         </View>
-
-        {/* Categories */}
         <View style={styles.section}>
           <ThemedText style={styles.sectionTitle}>Categorías</ThemedText>
           <View style={styles.categoriesGrid}>
@@ -166,8 +161,6 @@ export default function SearchScreen() {
             ))}
           </View>
         </View>
-
-        {/* Trending Dishes */}
         <View style={styles.section}>
           <View style={styles.sectionHeader}>
             <ThemedText style={styles.sectionTitle}>Platos en tendencia</ThemedText>
@@ -207,8 +200,6 @@ export default function SearchScreen() {
             </TouchableOpacity>
           ))}
         </View>
-
-        {/* Tips */}
         <View style={[styles.tipsCard, { backgroundColor: colors.card, borderColor: colors.border }]}>
           <Text style={styles.tipsIcon}>💡</Text>
           <View style={styles.tipsContent}>
