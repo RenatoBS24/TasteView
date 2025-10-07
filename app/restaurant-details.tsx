@@ -118,9 +118,12 @@ export default function RestaurantDetailsScreen() {
         <View style={styles.reviewsSection}>
           <View style={styles.reviewsHeader}>
             <ThemedText style={styles.sectionTitle}>Opiniones</ThemedText>
-            <TouchableOpacity activeOpacity={0.7}>
+            <TouchableOpacity activeOpacity={0.7} style={styles.reviewsActions}>
               <ThemedText style={[styles.seeAllLink, { color: colors.primary }]}>
                 Ver todas
+              </ThemedText>
+              <ThemedText style={[styles.seeAllLink, { color: colors.primary }]}>
+                Agregar reseña
               </ThemedText>
             </TouchableOpacity>
           </View>
@@ -453,4 +456,8 @@ const styles = StyleSheet.create({
     fontSize: 14,
     opacity: 0.7,
   },
+  reviewsActions: {
+    flexDirection: 'row',
+    gap: 12,
+    },
 });

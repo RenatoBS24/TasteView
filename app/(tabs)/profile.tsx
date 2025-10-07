@@ -19,7 +19,7 @@ export default function ProfileScreen() {
             <Text style={styles.avatarText}>👤</Text>
           </View>
           <ThemedText style={styles.userName}>Usuario Demo</ThemedText>
-          <ThemedText style={styles.userEmail}>demo@tasteview.com</ThemedText>
+          <ThemedText style={styles.userEmail}>demo@gmail.com</ThemedText>
           
           <View style={[styles.accountTypeBadge, { backgroundColor: colors.primary }]}>
             <Text style={styles.accountTypeText}>Cliente</Text>
@@ -36,11 +36,6 @@ export default function ProfileScreen() {
             <Text style={styles.statIcon}>⭐</Text>
             <ThemedText style={styles.statNumber}>12</ThemedText>
             <ThemedText style={styles.statLabel}>Favoritos</ThemedText>
-          </View>
-          <View style={[styles.statCard, { backgroundColor: colors.card, borderColor: colors.border }]}>
-            <Text style={styles.statIcon}>🏪</Text>
-            <ThemedText style={styles.statNumber}>8</ThemedText>
-            <ThemedText style={styles.statLabel}>Restaurantes</ThemedText>
           </View>
         </View>
 
@@ -62,15 +57,6 @@ export default function ProfileScreen() {
           >
             <Text style={styles.menuIcon}>🔒</Text>
             <ThemedText style={styles.menuText}>Cambiar Contraseña</ThemedText>
-            <Text style={styles.menuArrow}>›</Text>
-          </TouchableOpacity>
-
-          <TouchableOpacity
-            style={[styles.menuItem, { backgroundColor: colors.card, borderColor: colors.border }]}
-            activeOpacity={0.7}
-          >
-            <Text style={styles.menuIcon}>💳</Text>
-            <ThemedText style={styles.menuText}>Métodos de Pago</ThemedText>
             <Text style={styles.menuArrow}>›</Text>
           </TouchableOpacity>
         </View>
