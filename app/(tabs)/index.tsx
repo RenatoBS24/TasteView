@@ -1,3 +1,4 @@
+import PromoCard from '@/components/promo-card'; // Ajusta la ruta
 import { ThemedText } from '@/components/themed-text';
 import { ThemedView } from '@/components/themed-view';
 import { Colors } from '@/constants/theme';
@@ -14,6 +15,13 @@ export default function HomeScreen() {
         <ThemedText style={styles.title}>TasteView</ThemedText>
         <ThemedText style={styles.subtitle}>Explora menús en 3D</ThemedText>
       </View>
+
+      <PromoCard 
+        title="Especial de Fin de Semana"
+        description="Pide nuestro lomo saltado con 20% de dscto."
+        targetUrl="http://localhost:8081/restaurant-details"
+        price="S/ 35.00"
+      />
 
       <View style={styles.heroSection}>
         <View style={[styles.heroImage, { backgroundColor: colors.border }]}>
