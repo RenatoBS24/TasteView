@@ -38,7 +38,7 @@ export default function NotificationsScreen() {
       description: 'Hemos agregado "Arroz con Pato" a nuestro menú. ¡Ven a probarlo!',
       restaurantName: 'Sabor Criollo',
       time: 'Hace 5 horas',
-      image: 'https://www.comida-peruana.com/base/stock/Recipe/20-image/20-image_web.jpg',
+      image: 'https://comidasperuanas.net/wp-content/uploads/2024/04/Receta-de-Ceviche-de-Toyo.jpg',
       read: false,
     },
     {
@@ -57,7 +57,7 @@ export default function NotificationsScreen() {
       description: 'Tu favorito de siempre ahora con huevo y plátano frito. ¡Una delicia!',
       restaurantName: 'El Paisa Norteño',
       time: 'Ayer',
-      image: 'https://cdn0.recetasgratis.net/es/img/2/3/5/lomo_saltado_peruano_4532_600.jpg',
+      image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSDjwuKyRuD1RdIdAMYbLZ77XkUocCTkkrG9w&s',
       read: true,
     },
     {
