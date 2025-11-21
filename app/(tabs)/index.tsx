@@ -17,13 +17,6 @@ export default function HomeScreen() {
         <ThemedText style={styles.subtitle}>Explora menús en 3D</ThemedText>
       </View>
 
-      <PromoCard 
-        title="Especial de Fin de Semana"
-        description="Pide nuestro lomo saltado con 20% de dscto."
-        targetUrl="http://localhost:8081/restaurant-details"
-        price="S/ 35.00"
-      />
-
       <View style={styles.heroSection}>
         <View style={[styles.heroImage, { backgroundColor: colors.border }]}>
           <Text style={[styles.heroIcon, { color: colors.icon }]}>🍽️</Text>
@@ -35,6 +28,13 @@ export default function HomeScreen() {
           Descubre el menú de forma interactiva antes de ordenar
         </ThemedText>
       </View>
+
+      <PromoCard 
+        title="Especial de Fin de Semana"
+        description="Pide nuestro lomo saltado con 20% de dscto."
+        targetUrl="http://localhost:8081/restaurant-details"
+        price="S/ 35.00"
+      />
 
       <View style={styles.features}>
         <View style={[styles.featureCard, { backgroundColor: colors.card, borderColor: colors.border }]}>
