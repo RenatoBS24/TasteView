@@ -3,7 +3,7 @@ import { ThemedText } from '@/components/themed-text';
 import { ThemedView } from '@/components/themed-view';
 import { Colors } from '@/constants/theme';
 import { useColorScheme } from '@/hooks/use-color-scheme';
-import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 
 export default function HomeScreen() {
   const colorScheme = useColorScheme();
@@ -11,7 +11,8 @@ export default function HomeScreen() {
 
   return (
     <ThemedView style={styles.container}>
-      <View style={styles.header}>
+      <ScrollView showsVerticalScrollIndicator={false}>
+        <View style={styles.header}>
         <ThemedText style={styles.title}>TasteView</ThemedText>
         <ThemedText style={styles.subtitle}>Explora menús en 3D</ThemedText>
       </View>
@@ -59,6 +60,7 @@ export default function HomeScreen() {
       >
         <Text style={styles.ctaText}>Explorar Restaurantes</Text>
       </TouchableOpacity>
+      </ScrollView>
     </ThemedView>
   );
 }
