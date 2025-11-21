@@ -4,11 +4,16 @@ import { Colors } from '@/constants/theme';
 import { useColorScheme } from '@/hooks/use-color-scheme';
 import { router } from 'expo-router';
 import { useState } from 'react';
-import { Alert, Image, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { Alert, Image, Modal, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 
 export default function RestaurantMenuManagerScreen() {
   const colorScheme = useColorScheme();
   const colors = Colors[colorScheme ?? 'light'];
+
+  const [qrModalVisible, setQrModalVisible] = useState(false);
+  
+  const qrImageUrl = `https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=https://www.capitcix.com.pe`;
+  //const qrImageUrl = `https://upload.wikimedia.org/wikipedia/commons/d/d7/Commons_QR_code.png`;
 
   const [menuItems, setMenuItems] = useState([
     { id: 1, name: 'Ceviche mixto', price: 'S/. 35.00', category: 'Platos de Fondo', has3D: true },
@@ -77,6 +82,7 @@ export default function RestaurantMenuManagerScreen() {
               </Text>
             </View>
           </TouchableOpacity>
+          
         </View>
 
         <View style={[styles.infoCard, { backgroundColor: colors.card, borderColor: colors.border }]}>
@@ -93,6 +99,26 @@ export default function RestaurantMenuManagerScreen() {
               </Text>
             </TouchableOpacity>
           </View>
+        </View>
+
+        
+        <View style={styles.actionButtons}>
+          <TouchableOpacity
+            style={[styles.secondaryActionButton, { backgroundColor: colors.card, borderColor: colors.border }]}
+            onPress={() => setQrModalVisible(true)} 
+            activeOpacity={0.7}
+          >
+            <Image source={{uri:'https://upload.wikimedia.org/wikipedia/commons/d/d7/Commons_QR_code.png'}} style={{width:40,height:40,borderRadius:20}}/>
+            <View style={styles.actionButtonContent}>
+              <Text style={[styles.actionButtonTitle, { color: colors.text }]}>
+                Código QR
+              </Text>
+              <Text style={[styles.actionButtonSubtitle, { color: colors.text }]}>
+                Genera un código QR para compartir el menú
+              </Text>
+            </View>
+          </TouchableOpacity>
+          
         </View>
 
         <View style={styles.menuSection}>
@@ -158,6 +184,65 @@ export default function RestaurantMenuManagerScreen() {
           </TouchableOpacity>
         </View>
       </ScrollView>
+      <Modal
+        animationType="fade"
+        transparent={true}
+        visible={qrModalVisible}
+        onRequestClose={() => setQrModalVisible(false)}
+      >
+        <View style={styles.modalOverlay}>
+          <View style={[styles.modalContent, { backgroundColor: colors.card, borderColor: colors.border }]}>
+            <ThemedText style={styles.modalTitle}>Menú QR</ThemedText>
+            
+            <View style={styles.qrContainer}>
+              <Image 
+                source={{ uri: qrImageUrl }} 
+                style={styles.qrImage} 
+                resizeMode="contain"
+              />
+            </View>
+
+            <Text style={[styles.modalSubtitle, { color: colors.text }]}>
+              Escanea para ver el menú
+            </Text>
+
+            {/* ZONA DE BOTONES (Solo visual) */}
+            <View style={styles.modalActions}>
+              
+              {/* Fila de opciones */}
+              <View style={styles.rowActions}>
+                <TouchableOpacity 
+                  style={[styles.actionOptionButton, { backgroundColor: colors.background, borderColor: colors.border }]}
+                  onPress={() => console.log("Click en Compartir")} 
+                  activeOpacity={0.7}
+                >
+                  <Text style={styles.optionIcon}>🔗</Text>
+                  <ThemedText style={styles.optionText}>Compartir</ThemedText>
+                </TouchableOpacity>
+
+                <TouchableOpacity 
+                  style={[styles.actionOptionButton, { backgroundColor: colors.background, borderColor: colors.border }]}
+                  onPress={() => console.log("Click en Descargar")}
+                  activeOpacity={0.7}
+                >
+                  <Text style={styles.optionIcon}>⬇️</Text>
+                  <ThemedText style={styles.optionText}>Descargar</ThemedText>
+                </TouchableOpacity>
+              </View>
+
+              {/* Botón Cerrar */}
+              <TouchableOpacity 
+                style={[styles.closeButtonFull, { backgroundColor: colors.primary }]}
+                onPress={() => setQrModalVisible(false)}
+                activeOpacity={0.8}
+              >
+                <Text style={styles.closeButtonText}>Cerrar</Text>
+              </TouchableOpacity>
+
+            </View>
+          </View>
+        </View>
+      </Modal>
     </ThemedView>
   );
 }
@@ -401,5 +486,84 @@ const styles = StyleSheet.create({
   helpButtonText: {
     fontSize: 14,
     fontWeight: '600',
+  },
+  modalOverlay: {
+    flex: 1,
+    backgroundColor: 'rgba(0, 0, 0, 0.6)',
+    justifyContent: 'center',
+    alignItems: 'center',
+    padding: 20,
+  },
+  modalContent: {
+    width: '100%',
+    maxWidth: 320,
+    borderRadius: 24,
+    padding: 24,
+    alignItems: 'center',
+    borderWidth: 1,
+    // Sombras
+    shadowColor: "#000",
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.3,
+    shadowRadius: 5,
+    elevation: 8,
+  },
+  modalTitle: {
+    fontSize: 20,
+    fontWeight: 'bold',
+    marginBottom: 20,
+  },
+  qrContainer: {
+    backgroundColor: 'white',
+    padding: 16,
+    borderRadius: 20,
+    marginBottom: 16,
+  },
+  qrImage: {
+    width: 200,
+    height: 200,
+  },
+  modalSubtitle: {
+    fontSize: 14,
+    opacity: 0.7,
+    marginBottom: 24,
+    textAlign: 'center',
+  },
+  // Estilos de los botones del Modal
+  modalActions: {
+    width: '100%',
+    gap: 12,
+  },
+  rowActions: {
+    flexDirection: 'row',
+    gap: 12,
+  },
+  actionOptionButton: {
+    flex: 1, // Esto hace que ambos botones tengan el mismo ancho
+    alignItems: 'center',
+    justifyContent: 'center',
+    paddingVertical: 12,
+    borderRadius: 12,
+    borderWidth: 1,
+  },
+  optionIcon: {
+    fontSize: 22,
+    marginBottom: 4,
+  },
+  optionText: {
+    fontSize: 12,
+    fontWeight: '600',
+  },
+  closeButtonFull: {
+    width: '100%',
+    paddingVertical: 14,
+    borderRadius: 12,
+    alignItems: 'center',
+    marginTop: 4,
+  },
+  closeButtonText: {
+    color: '#FFFFFF',
+    fontSize: 16,
+    fontWeight: 'bold',
   },
 });
