@@ -13,7 +13,10 @@ export default function ProfileScreen() {
   const [locationEnabled, setLocationEnabled] = useState(true);
   const handleLogoutPress = () => {
      router.push('/login');
-    };
+  };
+  const handleSupportPress = () => {
+     router.push('/Support-Chat');
+  };
   return (
     <ThemedView style={styles.container}>
       <ScrollView showsVerticalScrollIndicator={false}>
@@ -113,6 +116,7 @@ export default function ProfileScreen() {
           <TouchableOpacity
             style={[styles.menuItem, { backgroundColor: colors.card, borderColor: colors.border }]}
             activeOpacity={0.7}
+            onPress={handleSupportPress}
           >
             <Text style={styles.menuIcon}>📧</Text>
             <ThemedText style={styles.menuText}>Contactar Soporte</ThemedText>
