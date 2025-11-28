@@ -1,38 +1,59 @@
-import { GoogleGenerativeAI } from "@google/generative-ai";
+import Constants from "expo-constants";
 
-const API_KEY = process.env.EXPO_PUBLIC_GEMINI_API_KEY;
+const API_KEY = Constants.expoConfig?.extra?.EXPO_PUBLIC_GEMINI_API_KEY;
 
 if (!API_KEY) {
-  console.error("Falta la API Key de Gemini en el archivo .env");
+  console.warn("Falta la API Key de Gemini en el archivo .env");
+  console.warn("Configura EXPO_PUBLIC_GEMINI_API_KEY en tu archivo .env");
 }
 
-const genAI = new GoogleGenerativeAI(API_KEY || "");
-const model = genAI.getGenerativeModel({ model: "gemini-2.5-flash" });
-
+const GEMINI_URL =
+  "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=" +
+  API_KEY;
 const formatHistoryForGemini = (messages: any[]) => {
   return messages
-    .filter((msg, index) => !(index === 0 && msg.sender === 'bot'))
+    .filter((msg, index) => !(index === 0 && msg.sender === "bot"))
     .map((msg) => ({
-      role: msg.sender === 'user' ? 'user' : 'model',
+      role: msg.sender === "user" ? "user" : "model",
       parts: [{ text: msg.text }],
     }));
 };
-
 export const sendMessageToGemini = async (
-  currentHistory: any[], 
+  currentHistory: any[],
   newMessage: string
 ) => {
   try {
-    const chat = model.startChat({
-      history: formatHistoryForGemini(currentHistory),
+    const body = {
+      contents: [
+        ...formatHistoryForGemini(currentHistory),
+        {
+          role: "user",
+          parts: [{ text: newMessage }],
+        },
+      ],
+    };
+
+    const response = await fetch(GEMINI_URL, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(body),
     });
 
-    const result = await chat.sendMessage(newMessage);
-    const response = await result.response;
-    
-    return response.text();
+    const data = await response.json();
+    console.log("Respuesta cruda de Gemini:", JSON.stringify(data, null, 2));
+    console.log("API KEY USADA →", API_KEY);
+
+
+
+    const text =
+      data?.candidates?.[0]?.content?.parts?.[0]?.text ??
+      "Lo siento, no pude generar una respuesta.";
+
+    return text;
   } catch (error) {
     console.error("Error conectando con Gemini:", error);
-    return "Lo siento, tuve un problema procesando tu solicitud. Intenta de nuevo.";
+    return "Hubo un problema procesando tu solicitud. Intenta de nuevo.";
   }
 };
