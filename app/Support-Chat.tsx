@@ -2,21 +2,21 @@ import { ThemedText } from '@/components/themed-text';
 import { ThemedView } from '@/components/themed-view';
 import { Colors } from '@/constants/theme';
 import { useColorScheme } from '@/hooks/use-color-scheme';
+import { sendMessageToGemini } from '@/services/geminiService';
 import { router } from 'expo-router';
-import { useRef, useState, useEffect } from 'react';
-import { 
-  StyleSheet, 
-  TextInput, 
-  TouchableOpacity, 
-  View, 
-  FlatList, 
-  KeyboardAvoidingView, 
-  Platform,
+import { useEffect, useRef, useState } from 'react';
+import {
   ActivityIndicator,
-  Text
+  FlatList,
+  KeyboardAvoidingView,
+  Platform,
+  StyleSheet,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  View
 } from 'react-native';
 
-// Definición de tipos para escalabilidad
 type Message = {
   id: string;
   text: string;
@@ -29,13 +29,10 @@ export default function SupportChatScreen() {
   const colors = Colors[colorScheme ?? 'light'];
   const flatListRef = useRef<FlatList>(null);
 
-  // Estado del input
   const [inputText, setInputText] = useState('');
   
-  // Estado de carga (Typing indicator)
   const [isBotTyping, setIsBotTyping] = useState(false);
 
-  // Estado de mensajes iniciales
   const [messages, setMessages] = useState<Message[]>([
     {
       id: '1',
@@ -45,7 +42,6 @@ export default function SupportChatScreen() {
     }
   ]);
 
-  // Función para hacer scroll al fondo cuando llega un mensaje
   const scrollToBottom = () => {
     setTimeout(() => {
       flatListRef.current?.scrollToEnd({ animated: true });
@@ -56,32 +52,28 @@ export default function SupportChatScreen() {
     scrollToBottom();
   }, [messages, isBotTyping]);
 
-  // Lógica principal de envío
   const handleSend = async () => {
     if (inputText.trim().length === 0) return;
 
+    const textToSend = inputText;
+
     const userMsg: Message = {
       id: Date.now().toString(),
-      text: inputText,
+      text: textToSend,
       sender: 'user',
       timestamp: new Date(),
     };
-
-    // 1. Agregar mensaje del usuario
+    
     setMessages((prev) => [...prev, userMsg]);
     setInputText('');
     setIsBotTyping(true);
-
-    // 2. SIMULACIÓN DE LLAMADA A GEMINI (Aquí integrarás la API después)
     try {
-      // Simular delay de red
-      await new Promise(resolve => setTimeout(resolve, 1500));
       
-      const botResponseText = "Entiendo tu consulta. Como soy una demo, aún no conecto con Gemini, pero mi estructura está lista para recibir la respuesta de la IA.";
+      const responseText = await sendMessageToGemini(messages, textToSend);
 
       const botMsg: Message = {
         id: (Date.now() + 1).toString(),
-        text: botResponseText,
+        text: responseText,
         sender: 'bot',
         timestamp: new Date(),
       };
@@ -89,13 +81,11 @@ export default function SupportChatScreen() {
       setMessages((prev) => [...prev, botMsg]);
     } catch (error) {
       console.error(error);
-      // Manejar error en UI
     } finally {
       setIsBotTyping(false);
     }
   };
 
-  // Renderizado de cada burbuja de mensaje
   const renderMessageItem = ({ item }: { item: Message }) => {
     const isUser = item.sender === 'user';
     return (
@@ -110,7 +100,7 @@ export default function SupportChatScreen() {
       ]}>
         <ThemedText style={[
           styles.messageText, 
-          { color: isUser ? '#FFFFFF' : undefined } // Texto blanco si es usuario
+          { color: isUser ? '#FFFFFF' : undefined }
         ]}>
           {item.text}
         </ThemedText>
@@ -126,7 +116,6 @@ export default function SupportChatScreen() {
 
   return (
     <ThemedView style={styles.container}>
-      {/* Header Simple */}
       <View style={[styles.header, { borderBottomColor: colors.border }]}>
         <TouchableOpacity onPress={() => router.back()} style={styles.backButton}>
           <Text style={[styles.headerIcon, { color: colors.text }]}>←</Text>
@@ -137,7 +126,6 @@ export default function SupportChatScreen() {
         </View>
       </View>
 
-      {/* Lista de Mensajes */}
       <FlatList
         ref={flatListRef}
         data={messages}
@@ -155,7 +143,6 @@ export default function SupportChatScreen() {
         )}
       />
 
-      {/* Input Area */}
       <KeyboardAvoidingView 
         behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
         keyboardVerticalOffset={Platform.OS === 'ios' ? 90 : 0}
@@ -273,6 +260,6 @@ const styles = StyleSheet.create({
   sendIcon: {
     color: 'white',
     fontSize: 18,
-    marginLeft: 2, // Ajuste visual óptico
+    marginLeft: 2,
   },
 });
